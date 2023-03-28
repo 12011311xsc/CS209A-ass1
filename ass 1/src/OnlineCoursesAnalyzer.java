@@ -3,12 +3,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-
 import static java.util.stream.Collectors.toMap;
 
 /**
  *
- * This is just a demo for you, please run it on JDK17 (some statements may be not allowed in lower version).
+ * This is just a demo for you, please run it on JDK17
+ * (some statements may be not allowed in lower version).
  * This is just a demo, and you can extend and implement functions
  * based on this demo, or implement it in a different way.
  */
@@ -25,11 +25,16 @@ public class OnlineCoursesAnalyzer {
             while ((line = br.readLine()) != null) {
                 String[] info = line.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)", -1);
                 Course course = new Course(info[0], info[1], new Date(info[2]), info[3], info[4], info[5],
-                        Integer.parseInt(info[6]), Integer.parseInt(info[7]), Integer.parseInt(info[8]),
-                        Integer.parseInt(info[9]), Integer.parseInt(info[10]), Double.parseDouble(info[11]),
-                        Double.parseDouble(info[12]), Double.parseDouble(info[13]), Double.parseDouble(info[14]),
-                        Double.parseDouble(info[15]), Double.parseDouble(info[16]), Double.parseDouble(info[17]),
-                        Double.parseDouble(info[18]), Double.parseDouble(info[19]), Double.parseDouble(info[20]),
+                        Integer.parseInt(info[6]), Integer.parseInt(info[7]),
+                        Integer.parseInt(info[8]),
+                        Integer.parseInt(info[9]), Integer.parseInt(info[10]),
+                        Double.parseDouble(info[11]),
+                        Double.parseDouble(info[12]), Double.parseDouble(info[13]),
+                        Double.parseDouble(info[14]),
+                        Double.parseDouble(info[15]), Double.parseDouble(info[16]),
+                        Double.parseDouble(info[17]),
+                        Double.parseDouble(info[18]), Double.parseDouble(info[19]),
+                        Double.parseDouble(info[20]),
                         Double.parseDouble(info[21]), Double.parseDouble(info[22]));
                 courses.add(course);
             }
@@ -71,7 +76,9 @@ public class OnlineCoursesAnalyzer {
             }
         }
         return map.entrySet().stream()
-                .sorted(((o1, o2) -> !Objects.equals(o1.getValue(), o2.getValue()) ? o2.getValue()-o1.getValue():o1.getKey().compareTo(o2.getKey())))
+                .sorted(((o1, o2) -> !Objects.equals(o1.getValue(), o2.getValue())
+                        ? o2.getValue()-o1.getValue()
+                        : o1.getKey().compareTo(o2.getKey())))
                 .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
                         LinkedHashMap::new));
     }
@@ -145,8 +152,10 @@ public class OnlineCoursesAnalyzer {
     public List<String> searchCourses(String courseSubject, double percentAudited, double totalCourseHours) {
         List<String> result = new ArrayList<>();
         for(Course course:courses){
-            if(course.subject.toLowerCase().contains(courseSubject.toLowerCase()) && course.percentAudited >= percentAudited
-                    && course.totalHours <= totalCourseHours && !result.contains(course.title)){
+            if(course.subject.toLowerCase().contains(courseSubject.toLowerCase())
+                    && course.percentAudited >= percentAudited
+                    && course.totalHours <= totalCourseHours
+                    && !result.contains(course.title)){
                 result.add(course.title);
             }
         }
